@@ -1,0 +1,140 @@
+scala> var input=sc.textFile("/user/cloudera/dsky/dsky.txt")
+15/07/09 00:18:56 INFO storage.MemoryStore: ensureFreeSpace(76616) called with curMem=541160, maxMem=311387750
+15/07/09 00:18:56 INFO storage.MemoryStore: Block broadcast_6 stored as values to memory (estimated size 74.8 KB, free 296.4 MB)
+input: org.apache.spark.rdd.RDD[String] = MappedRDD[69] at textFile at <console>:12
+
+scala> var cnt=input.flatMap(line => line.split(" ")).map(word => (word,1)).reduceByKey(_+_).map(item => item.swap).sortByKey(false,2).map(item => item.swap)
+15/07/09 00:20:25 INFO mapred.FileInputFormat: Total input paths to process : 1
+15/07/09 00:20:25 INFO spark.SparkContext: Starting job: sortByKey at <console>:14
+15/07/09 00:20:25 INFO scheduler.DAGScheduler: Registering RDD 72 (reduceByKey at <console>:14)
+15/07/09 00:20:25 INFO scheduler.DAGScheduler: Got job 16 (sortByKey at <console>:14) with 1 output partitions (allowLocal=false)
+15/07/09 00:20:25 INFO scheduler.DAGScheduler: Final stage: Stage 38(sortByKey at <console>:14)
+15/07/09 00:20:25 INFO scheduler.DAGScheduler: Parents of final stage: List(Stage 39)
+15/07/09 00:20:25 INFO scheduler.DAGScheduler: Missing parents: List(Stage 39)
+15/07/09 00:20:25 INFO scheduler.DAGScheduler: Submitting Stage 39 (MapPartitionsRDD[72] at reduceByKey at <console>:14), which has no missing parents
+15/07/09 00:20:25 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from Stage 39 (MapPartitionsRDD[72] at reduceByKey at <console>:14)
+15/07/09 00:20:25 INFO scheduler.TaskSchedulerImpl: Adding task set 39.0 with 1 tasks
+15/07/09 00:20:25 INFO scheduler.TaskSetManager: Starting task 39.0:0 as TID 25 on executor localhost: localhost (PROCESS_LOCAL)
+15/07/09 00:20:25 INFO scheduler.TaskSetManager: Serialized task 39.0:0 as 2098 bytes in 1 ms
+15/07/09 00:20:25 INFO executor.Executor: Running task ID 25
+15/07/09 00:20:26 INFO storage.BlockManager: Found block broadcast_6 locally
+15/07/09 00:20:26 INFO rdd.HadoopRDD: Input split: hdfs://quickstart.cloudera:8020/user/cloudera/dsky/dsky.txt:0+8288
+15/07/09 00:20:26 INFO executor.Executor: Serialized size of result for 25 is 785
+15/07/09 00:20:26 INFO executor.Executor: Sending result for 25 directly to driver
+15/07/09 00:20:26 INFO scheduler.DAGScheduler: Completed ShuffleMapTask(39, 0)
+15/07/09 00:20:26 INFO executor.Executor: Finished task ID 25
+15/07/09 00:20:26 INFO scheduler.TaskSetManager: Finished TID 25 in 252 ms on localhost (progress: 1/1)
+15/07/09 00:20:26 INFO scheduler.DAGScheduler: Stage 39 (reduceByKey at <console>:14) finished in 0.271 s
+15/07/09 00:20:26 INFO scheduler.DAGScheduler: looking for newly runnable stages
+15/07/09 00:20:26 INFO scheduler.DAGScheduler: running: Set()
+15/07/09 00:20:26 INFO scheduler.DAGScheduler: waiting: Set(Stage 38)
+15/07/09 00:20:26 INFO scheduler.DAGScheduler: failed: Set()
+15/07/09 00:20:26 INFO scheduler.DAGScheduler: Missing parents for Stage 38: List()
+15/07/09 00:20:26 INFO scheduler.DAGScheduler: Submitting Stage 38 (MappedRDD[75] at map at <console>:14), which is now runnable
+15/07/09 00:20:26 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 39.0, whose tasks have all completed, from pool 
+15/07/09 00:20:26 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from Stage 38 (MappedRDD[75] at map at <console>:14)
+15/07/09 00:20:26 INFO scheduler.TaskSchedulerImpl: Adding task set 38.0 with 1 tasks
+15/07/09 00:20:26 INFO scheduler.TaskSetManager: Starting task 38.0:0 as TID 26 on executor localhost: localhost (PROCESS_LOCAL)
+15/07/09 00:20:26 INFO scheduler.TaskSetManager: Serialized task 38.0:0 as 1959 bytes in 1 ms
+15/07/09 00:20:26 INFO executor.Executor: Running task ID 26
+15/07/09 00:20:26 INFO storage.BlockManager: Found block broadcast_6 locally
+15/07/09 00:20:26 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: maxBytesInFlight: 50331648, targetRequestSize: 10066329
+15/07/09 00:20:26 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: Getting 1 non-empty blocks out of 1 blocks
+15/07/09 00:20:26 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: Started 0 remote fetches in 6 ms
+15/07/09 00:20:27 INFO executor.Executor: Serialized size of result for 26 is 863
+15/07/09 00:20:27 INFO executor.Executor: Sending result for 26 directly to driver
+15/07/09 00:20:28 INFO executor.Executor: Finished task ID 26
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Completed ResultTask(38, 0)
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Stage 38 (sortByKey at <console>:14) finished in 1.776 s
+15/07/09 00:20:28 INFO spark.SparkContext: Job finished: sortByKey at <console>:14, took 2.184193531 s
+15/07/09 00:20:28 INFO scheduler.TaskSetManager: Finished TID 26 in 1786 ms on localhost (progress: 1/1)
+15/07/09 00:20:28 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 38.0, whose tasks have all completed, from pool 
+15/07/09 00:20:28 INFO spark.SparkContext: Starting job: sortByKey at <console>:14
+15/07/09 00:20:28 INFO spark.MapOutputTrackerMaster: Size of output statuses for shuffle 9 is 140 bytes
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Got job 17 (sortByKey at <console>:14) with 1 output partitions (allowLocal=false)
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Final stage: Stage 40(sortByKey at <console>:14)
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Parents of final stage: List(Stage 41)
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Missing parents: List()
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Submitting Stage 40 (MappedRDD[77] at sortByKey at <console>:14), which has no missing parents
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from Stage 40 (MappedRDD[77] at sortByKey at <console>:14)
+15/07/09 00:20:28 INFO scheduler.TaskSchedulerImpl: Adding task set 40.0 with 1 tasks
+15/07/09 00:20:28 INFO scheduler.TaskSetManager: Starting task 40.0:0 as TID 27 on executor localhost: localhost (PROCESS_LOCAL)
+15/07/09 00:20:28 INFO scheduler.TaskSetManager: Serialized task 40.0:0 as 2443 bytes in 1 ms
+15/07/09 00:20:28 INFO executor.Executor: Running task ID 27
+15/07/09 00:20:28 INFO storage.BlockManager: Found block broadcast_6 locally
+15/07/09 00:20:28 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: maxBytesInFlight: 50331648, targetRequestSize: 10066329
+15/07/09 00:20:28 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: Getting 1 non-empty blocks out of 1 blocks
+15/07/09 00:20:28 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: Started 0 remote fetches in 1 ms
+15/07/09 00:20:28 INFO executor.Executor: Serialized size of result for 27 is 952
+15/07/09 00:20:28 INFO executor.Executor: Sending result for 27 directly to driver
+15/07/09 00:20:28 INFO executor.Executor: Finished task ID 27
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Completed ResultTask(40, 0)
+15/07/09 00:20:28 INFO scheduler.DAGScheduler: Stage 40 (sortByKey at <console>:14) finished in 0.326 s
+15/07/09 00:20:28 INFO spark.SparkContext: Job finished: sortByKey at <console>:14, took 0.696079454 s
+15/07/09 00:20:28 INFO scheduler.TaskSetManager: Finished TID 27 in 328 ms on localhost (progress: 1/1)
+15/07/09 00:20:28 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 40.0, whose tasks have all completed, from pool 
+cnt: org.apache.spark.rdd.RDD[(String, Int)] = MappedRDD[80] at map at <console>:14
+
+scala> var rslt=cnt.take(10)
+15/07/09 00:21:18 INFO spark.SparkContext: Starting job: take at <console>:16
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Registering RDD 75 (map at <console>:14)
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Got job 18 (take at <console>:16) with 1 output partitions (allowLocal=true)
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Final stage: Stage 42(take at <console>:16)
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Parents of final stage: List(Stage 43)
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Missing parents: List(Stage 43)
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Submitting Stage 43 (MappedRDD[75] at map at <console>:14), which has no missing parents
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from Stage 43 (MappedRDD[75] at map at <console>:14)
+15/07/09 00:21:18 INFO scheduler.TaskSchedulerImpl: Adding task set 43.0 with 1 tasks
+15/07/09 00:21:18 INFO scheduler.TaskSetManager: Starting task 43.0:0 as TID 28 on executor localhost: localhost (PROCESS_LOCAL)
+15/07/09 00:21:18 INFO scheduler.TaskSetManager: Serialized task 43.0:0 as 2092 bytes in 1 ms
+15/07/09 00:21:18 INFO executor.Executor: Running task ID 28
+15/07/09 00:21:18 INFO storage.BlockManager: Found block broadcast_6 locally
+15/07/09 00:21:18 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: maxBytesInFlight: 50331648, targetRequestSize: 10066329
+15/07/09 00:21:18 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: Getting 1 non-empty blocks out of 1 blocks
+15/07/09 00:21:18 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: Started 0 remote fetches in 0 ms
+15/07/09 00:21:18 INFO executor.Executor: Serialized size of result for 28 is 1002
+15/07/09 00:21:18 INFO executor.Executor: Sending result for 28 directly to driver
+15/07/09 00:21:18 INFO scheduler.TaskSetManager: Finished TID 28 in 74 ms on localhost (progress: 1/1)
+15/07/09 00:21:18 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 43.0, whose tasks have all completed, from pool 
+15/07/09 00:21:18 INFO executor.Executor: Finished task ID 28
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Completed ShuffleMapTask(43, 0)
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Stage 43 (map at <console>:14) finished in 0.076 s
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: looking for newly runnable stages
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: running: Set()
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: waiting: Set(Stage 42)
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: failed: Set()
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Missing parents for Stage 42: List()
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Submitting Stage 42 (MappedRDD[80] at map at <console>:14), which is now runnable
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from Stage 42 (MappedRDD[80] at map at <console>:14)
+15/07/09 00:21:18 INFO scheduler.TaskSchedulerImpl: Adding task set 42.0 with 1 tasks
+15/07/09 00:21:18 INFO scheduler.TaskSetManager: Starting task 42.0:0 as TID 29 on executor localhost: localhost (PROCESS_LOCAL)
+15/07/09 00:21:18 INFO scheduler.TaskSetManager: Serialized task 42.0:0 as 2377 bytes in 1 ms
+15/07/09 00:21:18 INFO executor.Executor: Running task ID 29
+15/07/09 00:21:18 INFO storage.BlockManager: Found block broadcast_6 locally
+15/07/09 00:21:18 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: maxBytesInFlight: 50331648, targetRequestSize: 10066329
+15/07/09 00:21:18 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: Getting 1 non-empty blocks out of 1 blocks
+15/07/09 00:21:18 INFO storage.BlockFetcherIterator$BasicBlockFetcherIterator: Started 0 remote fetches in 0 ms
+15/07/09 00:21:18 INFO executor.Executor: Serialized size of result for 29 is 1155
+15/07/09 00:21:18 INFO executor.Executor: Sending result for 29 directly to driver
+15/07/09 00:21:18 INFO scheduler.TaskSetManager: Finished TID 29 in 19 ms on localhost (progress: 1/1)
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Completed ResultTask(42, 0)
+15/07/09 00:21:18 INFO scheduler.DAGScheduler: Stage 42 (take at <console>:16) finished in 0.017 s
+15/07/09 00:21:18 INFO spark.SparkContext: Job finished: take at <console>:16, took 0.147584009 s
+rslt: Array[(String, Int)] = Array(("",213), (the,75), (of,41), (and,33), (to,29), (SPARK,23), (in,19), (that,19), (is,16), (by,16))
+
+scala> 15/07/09 00:21:18 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 42.0, whose tasks have all completed, from pool 
+15/07/09 00:21:18 INFO executor.Executor: Finished task ID 29
+
+
+scala> rslt.foreach(println)
+(,213)
+(the,75)
+(of,41)
+(and,33)
+(to,29)
+(SPARK,23)
+(in,19)
+(that,19)
+(is,16)
+(by,16)
+
